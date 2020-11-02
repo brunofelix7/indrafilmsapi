@@ -5,11 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class BCryptUtilTest {
 
 	@Test
@@ -17,7 +15,7 @@ public class BCryptUtilTest {
 		//	Prepare
 		String message = "123456";
 		
-		//	Expected
+		//	Result
 		String result = BCryptUtil.crypt(message);
 				
 		//	Test
@@ -30,7 +28,7 @@ public class BCryptUtilTest {
 		String message = "123456";
 		String hash = "$2a$12$fls8CbcSv/1tfOMgdYZ23uSQscxF3UzywItaauV9g7kO1qHo9tU7W";
 		
-		//	Expected
+		//	Result
 		boolean result = BCryptUtil.isValid(message, hash);
 		
 		//	Test

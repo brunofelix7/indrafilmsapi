@@ -1,8 +1,10 @@
 package com.indracompany.indrafilmsapi.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.indracompany.indrafilmsapi.util.DateFormatUtil;
 
 public class MovieDto implements Serializable {
 
@@ -64,7 +66,8 @@ public class MovieDto implements Serializable {
 	}
 
 	public void setReleaseDate(String releaseDate) {
-		this.releaseDate = releaseDate;
+		Date date = DateFormatUtil.formatToDate(releaseDate);
+		this.releaseDate = DateFormatUtil.formatToString(date);
 	}
 
 	@Override

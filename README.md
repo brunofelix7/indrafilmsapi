@@ -4,5 +4,5 @@
 - Autenticação com token JWT + MongoDB
 - Integração com a API The Movie DB
 
-[Swagger UI]
-(https://indrafilmsapi.herokuapp.com/swagger-ui.html)
+### Swagger UI
+https://indrafilmsapi.herokuapp.com/swagger-ui.html
