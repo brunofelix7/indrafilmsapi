@@ -1,8 +1,8 @@
 package com.indracompany.indrafilmsapi.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,17 +10,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 public class DateFormatUtilTest {
-	
+
 	@Test
 	public void test_formatDate() {
-		//	Prepare
+		// Prepare
 		String stringDate = "2020-10-23";
-		
-		//	Result
+
+		// Result
 		Date date = DateFormatUtil.formatToDate(stringDate);
 		String result = DateFormatUtil.formatToString(date);
-		
-		//	Test
+
+		// Test
 		assertEquals("23/10/2020", result);
 	}
 

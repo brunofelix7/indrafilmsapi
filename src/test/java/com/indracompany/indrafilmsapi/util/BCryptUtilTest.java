@@ -12,26 +12,26 @@ public class BCryptUtilTest {
 
 	@Test
 	public void test_crypt() {
-		//	Prepare
+		// Prepare
 		String message = "123456";
-		
-		//	Result
+
+		// Result
 		String result = BCryptUtil.crypt(message);
-				
-		//	Test
+
+		// Test
 		assertNotNull(result);
 	}
-	
+
 	@Test
 	public void test_isValid() {
-		//	Prepare
+		// Prepare
 		String message = "123456";
 		String hash = "$2a$12$fls8CbcSv/1tfOMgdYZ23uSQscxF3UzywItaauV9g7kO1qHo9tU7W";
-		
-		//	Result
+
+		// Result
 		boolean result = BCryptUtil.isValid(message, hash);
-		
-		//	Test
+
+		// Test
 		assertTrue(result);
 	}
 
