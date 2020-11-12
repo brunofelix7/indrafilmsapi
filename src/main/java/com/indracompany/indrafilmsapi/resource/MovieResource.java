@@ -31,7 +31,7 @@ public class MovieResource {
 
 	@GetMapping
 	public ResponseEntity<?> home() {
-		return ResponseEntity.ok(new ApiResponse("Welcome to Indra Films my API."));
+		return ResponseEntity.ok(new ApiResponse("Welcome to Indra Films API."));
 	}
 	
 	@GetMapping(path = "/api/movies")
