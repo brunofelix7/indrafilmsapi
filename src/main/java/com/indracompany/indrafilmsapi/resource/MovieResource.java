@@ -3,6 +3,7 @@ package com.indracompany.indrafilmsapi.resource;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,12 +32,12 @@ public class MovieResource {
 
 	@GetMapping
 	public ResponseEntity<?> home() {
-		return ResponseEntity.ok(new ApiResponse("Welcome to Indra Films API."));
+		return ResponseEntity.ok(new ApiResponse(HttpStatus.OK.value(), "Welcome to Indra Films API.", null));
 	}
 	
 	@GetMapping(path = "/api/movies")
 	@ApiOperation(value = "Retorna os filmes mais populares.")
-	public List<MovieDto> films() {		
+	public List<MovieDto> films() {
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<MovieResultDto> response = restTemplate.getForEntity(url + apiKey, MovieResultDto.class);
 		

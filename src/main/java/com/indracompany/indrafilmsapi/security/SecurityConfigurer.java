@@ -22,6 +22,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	private JwtRequestFilter jwtRequestFilter;
 	
 	@Autowired
+	private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+	
+	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
@@ -40,6 +43,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 		.and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		http.httpBasic().authenticationEntryPoint(restAuthenticationEntryPoint);
 	}
 	
 	@Bean
