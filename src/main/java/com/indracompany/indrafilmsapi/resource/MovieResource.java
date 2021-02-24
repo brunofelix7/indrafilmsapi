@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.indracompany.indrafilmsapi.dto.ApiSuccessDto;
 import com.indracompany.indrafilmsapi.dto.MovieDto;
 import com.indracompany.indrafilmsapi.dto.MovieResultDto;
-import com.indracompany.indrafilmsapi.security.ApiResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,18 +32,18 @@ public class MovieResource {
 
 	@GetMapping
 	public ResponseEntity<?> home() {
-		return ResponseEntity.ok(new ApiResponse(HttpStatus.OK.value(), "Welcome to Indra Films API.", null));
+		return ResponseEntity.ok(new ApiSuccessDto<Object>(HttpStatus.OK.value(), "Welcome to Indra Films API.", null));
 	}
 	
 	@GetMapping(path = "/api/movies")
 	@ApiOperation(value = "Retorna os filmes mais populares.")
-	public List<MovieDto> films() {
+	public ResponseEntity<?> films() {
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<MovieResultDto> response = restTemplate.getForEntity(url + apiKey, MovieResultDto.class);
 		
 		List<MovieDto> results = response.getBody().getResults();
 		
-		return results;
+		return ResponseEntity.ok(new ApiSuccessDto<List<MovieDto>>(HttpStatus.OK.value(), "Autenticado com sucesso", results));
 	}
 	
 }

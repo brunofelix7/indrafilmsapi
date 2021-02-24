@@ -12,6 +12,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.indracompany.indrafilmsapi.dto.ApiErrorDto;
 
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
@@ -20,7 +21,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
     	response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        byte[] body = new ObjectMapper().writeValueAsBytes(new ApiResponse(HttpStatus.UNAUTHORIZED.value(), "Usuário não autorizado", null));
+        byte[] body = new ObjectMapper().writeValueAsBytes(new ApiErrorDto(HttpStatus.UNAUTHORIZED.value(), "Usuário não autorizado"));
         response.getOutputStream().write(body);
     }
 }

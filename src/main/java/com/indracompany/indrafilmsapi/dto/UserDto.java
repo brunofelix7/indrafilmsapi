@@ -1,19 +1,19 @@
-package com.indracompany.indrafilmsapi.security;
+package com.indracompany.indrafilmsapi.dto;
 
 import java.io.Serializable;
 
-public class TokenRequest implements Serializable {
+public class UserDto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private String email;
 	private String password;
 	
-	public TokenRequest() {
+	public UserDto() {
 		
 	}
 	
-	public TokenRequest(String email, String password) {
+	public UserDto(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;

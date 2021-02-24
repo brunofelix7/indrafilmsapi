@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.indracompany.indrafilmsapi.security.ApiResponse;
+import com.indracompany.indrafilmsapi.dto.ApiErrorDto;
+import com.indracompany.indrafilmsapi.dto.ApiSuccessDto;
+import com.indracompany.indrafilmsapi.dto.TokenDto;
+import com.indracompany.indrafilmsapi.dto.UserDto;
 import com.indracompany.indrafilmsapi.security.JwtUtil;
 import com.indracompany.indrafilmsapi.security.MyUserDetailsService;
-import com.indracompany.indrafilmsapi.security.TokenRequest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,20 +40,20 @@ public class AuthResource {
 
 	@PostMapping(path = "/auth")
 	@ApiOperation(value = "Realiza a autenticação do usuário.")
-	public ResponseEntity<?> authenticate(@RequestBody TokenRequest tokenRequest) throws Exception {
+	public ResponseEntity<?> authenticate(@RequestBody UserDto user) throws Exception {
 		try {
 			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(tokenRequest.getEmail(), tokenRequest.getPassword())
+					new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
 			);
 		} catch (BadCredentialsException e) {
-			return ResponseEntity.badRequest().body(new ApiResponse(HttpStatus.BAD_REQUEST.value(), "E-mail ou senha inválidos", null));
+			return ResponseEntity.badRequest().body(new ApiErrorDto(HttpStatus.BAD_REQUEST.value(), "E-mail ou senha inválidos"));
 		}
 		
-		final UserDetails userDetails = service.loadUserByUsername(tokenRequest.getEmail());
+		final UserDetails userDetails = service.loadUserByUsername(user.getEmail());
 		
 		final String token = jwtUtil.generateToken(userDetails);
 		
-		return ResponseEntity.ok(new ApiResponse(HttpStatus.OK.value(), "Autenticado com sucesso", token));
+		return ResponseEntity.ok(new ApiSuccessDto<TokenDto>(HttpStatus.OK.value(), "Autenticado com sucesso", new TokenDto(token)));
 	}
 	
 }
